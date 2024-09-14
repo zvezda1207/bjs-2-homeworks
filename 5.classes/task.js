@@ -3,14 +3,13 @@ class PrintEditionItem {
 		this.name = name;
 		this.releaseDate = releaseDate;
 		this.pagesCount = pagesCount;
-		this._state = 100;
+		this.state = 100;
 		this.type = null;
 	}
 	fix() {
-		this._state = this._state * 1.5;
+		this.state = this.state * 1.5;
 	}
 	set state(newState) {
-
 		if (newState < 0) {
 			this._state = 0;
 		} else if (newState > 100) {
@@ -33,7 +32,7 @@ class Magazine extends PrintEditionItem {
 }
 
 class Book extends PrintEditionItem {
-	constructor(name, releaseDate, pagesCount, author) {
+	constructor(author, name, releaseDate, pagesCount) {
 		super(name, releaseDate, pagesCount);
 		this.type = "book";
 		this.author = author;
@@ -41,31 +40,31 @@ class Book extends PrintEditionItem {
 }
 
 class NovelBook extends Book {
-	constructor(name, releaseDate, pagesCount, author) {
-		super(name, releaseDate, pagesCount, author);
+	constructor(author, name, releaseDate, pagesCount) {
+		super(author, name, releaseDate, pagesCount);
 		this.type = "novel";
 	}
 }
 
 class FantasticBook extends Book {
-	constructor(name, releaseDate, pagesCount, author) {
-		super(name, releaseDate, pagesCount, author);
+	constructor(author, name, releaseDate, pagesCount) {
+		super(author, name, releaseDate, pagesCount);
 		this.type = "fantastic";
 	}
 }
 
 class DetectiveBook extends Book {
-	constructor(name, releaseDate, pagesCount, author) {
-		super(name, releaseDate, pagesCount, author);
+	constructor(author, name, releaseDate, pagesCount) {
+		super(author, name, releaseDate, pagesCount);
 		this.type = "detective";
 	}
 }
 
 const picknick = new FantasticBook(
+	"Аркадий и Борис Стругацкие",
 	"Пикник на обочине",
 	1972,
 	168,
-	"Аркадий и Борис Стругацкие",
 );
 
 console.log(picknick.author); //"Аркадий и Борис Стругацкие"
@@ -77,11 +76,11 @@ console.log(picknick.state); //15
 const magazine = new Magazine("Космо", 2022, 100);
 console.log(magazine.type); // "magazine"
 
-const book = new Book("1984", 1949, 328, "Джордж Оруэлл");
+const book = new Book("Джордж Оруэлл", "1984", 1949, 328);
 console.log(book.type); // "book"
 console.log(book.author); // "Джордж Оруэлл"
 
-const novel = new NovelBook("Убить пересмешника", 1960, 336, "Харпер Ли");
+const novel = new NovelBook("Харпер Ли", "Убить пересмешника", 1960, 336);
 console.log(novel.type); // "novel"
 
 
@@ -148,9 +147,9 @@ console.log("Количество книг до выдачи: " + library.books.
 library.giveBookByName("Машина времени");
 console.log("Количество книг после выдачи: " + library.books.length); //Количество книг после выдачи: 3
 
-library.addBook(new Book('1984', 1949, 'George Orwell'));
-library.addBook(new Book('The Great Gatsby', 1925, 'F. Scott Fitzgerald'));
-library.addBook(new Book('Some Book', 1919, 230, 'Unknown Author'));
+library.addBook(new Book("1984", 1949, "George Orwell"));
+library.addBook(new Book("F. Scott Fitzgerald", "The Great Gatsby", 1925));
+library.addBook(new Book("Unknown Author", "Some Book", 1919, 230));
 
 let book1919 = library.findBookBy("releaseDate", 1919);
 console.log(book1919.name);
